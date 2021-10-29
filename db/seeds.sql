@@ -15,10 +15,10 @@ VALUES
 
 INSERT INTO employees(first_name, last_name, role_id)
 VALUES
-('Gandalf', 'The Grey', 1,
-('Frodo', 'Baggins', 2,
-('Samwise', 'Gamgee', 4,
-('Bilbo', 'Baggins', 3,
-('Pippin', 'Took', 4,
-('Gollum', ' My Precious', 4,
+('Gandalf', 'The Grey', 1),
+('Frodo', 'Baggins', 2),
+('Samwise', 'Gamgee', 4),
+('Bilbo', 'Baggins', 3),
+('Pippin', 'Took', 4),
+('Gollum', ' My Precious', 4),
 ('Taters', 'My', 3);
