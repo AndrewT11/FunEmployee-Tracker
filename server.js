@@ -1,4 +1,4 @@
-const express = require('express');
+
 const mysql = require('mysql2');
 const inquirer = require('inquirer');
 
@@ -16,9 +16,9 @@ const db = mysql.createConnection(
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'company_db'
+    database: 'boba_db'
   },
-  console.log(`Connected to the company_db database.`)
+  console.log(`Connected to the boba_db database.`)
 );
 
 // Function calling inquirer prompt for main menu questions
