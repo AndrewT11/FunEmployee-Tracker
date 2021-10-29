@@ -56,8 +56,38 @@ const mainMenuPrompt = function() {
                 case 'View All Employees by Department':
                     //function;
                     break;
-                case '':
+                case 'View All Employees by Manager':
                     //function;
+                    break;
+                case 'Add Employee':
+                    //function;
+                    break;
+                case 'Remove Employee':
+                    //function;
+                    break;
+                case 'Update Employee Role':
+                    //function;
+                    break;
+                case 'Update Employee Manager':
+                    //function;
+                    break;
+                case 'View All Roles':
+                    //function;
+                    break;
+                case 'View All Departments':
+                    //function;
+                    break;
+                case 'Add Department':
+                    //function;
+                    break;
+                case 'Remove Department':
+                    //function;
+                    break;
+                case 'View Total Utilized Budget By Department':
+                    //function
+                    break;
+                 case 'Quit':
+                    //function
                     break;
             }
         })
