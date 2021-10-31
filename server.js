@@ -163,7 +163,7 @@ const updateManager = () => {
 }
 
 const viewAllRoles = () => {
-  let sql = 'select * from employee';
+  let sql = 'select * from role';
   createConnection.query(query, function(err, res) {
     if (err) {
       res.status(400)
@@ -174,7 +174,7 @@ const viewAllRoles = () => {
 }
 
 const viewAllDepts = () => {
-  let sql = 'select * from employee';
+  let sql = 'select * from department';
   createConnection.query(query, function(err, res) {
     if (err) {
       res.status(400)
@@ -217,3 +217,5 @@ const viewBudget = () => {
 const quit = () => {
     
 }
+
+mainMenuQuestions();
