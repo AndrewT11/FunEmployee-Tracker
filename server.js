@@ -68,7 +68,7 @@ function mainMenuQuestions() {
 
 
 //Create Functions
-const allEmployees = () => {
+function allEmployees() {
   console.log("allEmployee")
   let sql = 'select * from employee';
 
@@ -82,9 +82,9 @@ const allEmployees = () => {
 
 };
 
-const allEmployeesByDept = () => {
+function allEmployeesByDept() {
   
-  const sql = `select * from employee group by department`;
+  let sql = `select * from employee group by department`;
 
     db.query(sql, function(err, res) {
     if (err) {
@@ -95,8 +95,8 @@ const allEmployeesByDept = () => {
   });
 };
 
-const allEmployeesByManager = () => {
-  const sql = `select * from employee where role_id = 2`;
+function allEmployeesByManager() {
+  let sql = `select * from employee where role_id = 2`;
 
   db.query(sql, function(err, res) {
     if (err) {
@@ -107,8 +107,8 @@ const allEmployeesByManager = () => {
   });
 };;
 
-const addEmployee = () => {
-  const sql = `INSERT INTO employee VALUES (?)`;
+function addEmployee() {
+  let sql = `INSERT INTO employee VALUES (?)`;
 
   db.query(sql, function(err, res) {
   if (err) {
@@ -119,15 +119,15 @@ const addEmployee = () => {
   });
 };
 
-const updateEmployeeRole = () => {
+function updateEmployeeRole() {
     
 };
 
-const updateManager = () => {
+function updateManager() {
     
 };
 
-const viewAllRoles = () => {
+function viewAllRoles() {
   let sql = 'select title from role';
   db.query(sql, function(err, res) {
     if (err) {
@@ -138,7 +138,7 @@ const viewAllRoles = () => {
   });
 };
 
-const viewAllDepts = () => {
+function viewAllDepts() {
   let sql = 'select * from department';
   db.query(sql, function(err, res) {
     if (err) {
@@ -149,7 +149,7 @@ const viewAllDepts = () => {
   });
 };
 
-const addDept = () => {
+function addDept() {
   inquirer.prompt([
     {
         type: 'input',
@@ -158,7 +158,7 @@ const addDept = () => {
     }
 ])
   .then((answer) => {
-    const sql = `INSERT INTO department VALUES (?)`;
+    let sql = `INSERT INTO department VALUES (?)`;
 
     db.query(sql, 
       {
@@ -176,7 +176,7 @@ const addDept = () => {
 };
 
 
-const quit = () => {
+function quit() {
     
 };
 
