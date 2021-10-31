@@ -1,5 +1,6 @@
 const mysql = require("mysql2");
 const inquirer = require("inquirer");
+const { createConnection } = require("net");
 
 //Create connection to database
 const db = mysql.createConnection(
@@ -88,6 +89,13 @@ const mainMenuPrompt = function () {
 
 //Create Functions
 const allEmployees = () => {
+  console.log("allEmployee")
+  let sql = 'select * from employee';
+  createConnection.query(query, function(err, res) {
+    if (err) throw err;
+    console.table(res);
+    mainMenuQuestions();
+  })
 
 }
 
