@@ -24,19 +24,13 @@ function mainMenuQuestions() {
       message: "Please select from the following:",
       choices: [
         "View All Employees",
-        "View All Employees by Department",
-        "View All Employees by Manager",
         "Add Employee",
-        "Remove Employee",
         "Update Employee Role",
         "Update Employee Manager",
         "View All Roles",
         "Add Role",
-        "Remove Role",
         "View All Departments",
         "Add Department",
-        "Remove Department",
-        "View Total Utilized Budget By Department",
         "Quit",
       ],
     }
@@ -54,6 +48,9 @@ function mainMenuQuestions() {
           break;
         case "View All Roles":
           viewAllRoles();
+          break;
+        case "Add Role":
+          addDept();
           break;
         case "View All Departments":
           viewAllDepts();
@@ -132,7 +129,7 @@ const updateManager = () => {
 }
 
 const viewAllRoles = () => {
-  let sql = 'select * from role';
+  let sql = 'select title from role';
   createConnection.query(sql, function(err, res) {
     if (err) {
       res.status(400)
