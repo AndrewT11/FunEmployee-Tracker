@@ -2,4 +2,4 @@
 select * from employee where role = Manager;
 
 --  allEmployeesByDept
-select 
+select * from employee group by department;

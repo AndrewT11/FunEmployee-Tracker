@@ -98,6 +98,8 @@ function mainMenuQuestions() {
 
 
 //Create Functions
+// WHEN I choose to view all employees
+// THEN I am presented with a formatted table showing employee data, including employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to
 function allEmployees() {
   console.log("allEmployees")
   let sql = 'select * from employee';
@@ -139,7 +141,8 @@ function updateManager() {
     
   ])
 };
-
+// WHEN I choose to view all roles
+// THEN I am presented with the job title, role id, the department that role belongs to, and the salary for that role
 function viewAllRoles() {
   let sql = 'select title from role';
   db.query(sql, function(err, res) {
@@ -152,8 +155,10 @@ function viewAllRoles() {
   });
 };
 
+// WHEN I choose to view all departments
+// THEN I am presented with a formatted table showing department names and department ids
 function viewAllDepts() {
-  let sql = 'select department_name from department';
+  let sql = 'select * from department';
   db.query(sql, function(err, res) {
     if (err) {
       console.log(err);
@@ -163,8 +168,9 @@ function viewAllDepts() {
     mainMenuQuestions();
   });
 };
-
-function addDept() {
+// WHEN I choose to add a department
+// THEN I am prompted to enter the name of the department and that department is added to the database
+// function addDept() {
   inquirer.prompt([
     {
         type: 'input',
