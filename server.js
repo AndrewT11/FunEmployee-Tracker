@@ -1,6 +1,7 @@
 const mysql = require("mysql2");
 const inquirer = require("inquirer");
 const { createConnection } = require("net");
+const cTable = require("console.table");
 
 //Create connection to database
 const db = mysql.createConnection(
@@ -14,8 +15,9 @@ const db = mysql.createConnection(
 );
 
 // Function calling inquirer prompt for main menu questions
-const mainMenuPrompt = function () {
-  let mainMenuQuestions = inquirer.prompt([
+
+function mainMenuQuestions() {
+  inquirer.prompt([
     {
       name: "mainMenu",
       type: "list",
@@ -37,54 +39,54 @@ const mainMenuPrompt = function () {
         "View Total Utilized Budget By Department",
         "Quit",
       ],
-    }])
-        .then((answer) => {
-        switch (answer) {
-          case "View All Employees":
-            allEmployees();
-            break;
-          case "View All Employees by Department":
-            allEmployeesByDept();
-            break;
-          case "View All Employees by Manager":
-            allEmployeesByManager();
-            break;
-          case "Add Employee":
-            addEmployee();
-            break;
-          case "Remove Employee":
-            removeEmployee();
-            break;
-          case "Update Employee Role":
-            updateEmployeeRole();
-            break;
-          case "Update Employee Manager":
-            updateManager();
-            break;
-          case "View All Roles":
-            viewAllRoles();
-            break;
-          case "View All Departments":
-            viewAllDepts();
-            break;
-          case "Add Department":
-            addDept();
-            break;
-          case "Remove Department":
-            removeDept();
-            break;
-          case "View Total Utilized Budget By Department":
-            viewBudget();
-            break;
-          case "Quit":
-            quit();
-            break;
-          default:
-            "Error";
-        }
-        })
-    
-};
+    }
+  ])
+    .then((answer) => {
+      switch (answer) {
+        case "View All Employees":
+          allEmployees();
+          break;
+        case "View All Employees by Department":
+          allEmployeesByDept();
+          break;
+        case "View All Employees by Manager":
+          allEmployeesByManager();
+          break;
+        case "Add Employee":
+          addEmployee();
+          break;
+        case "Remove Employee":
+          removeEmployee();
+          break;
+        case "Update Employee Role":
+          updateEmployeeRole();
+          break;
+        case "Update Employee Manager":
+          updateManager();
+          break;
+        case "View All Roles":
+          viewAllRoles();
+          break;
+        case "View All Departments":
+          viewAllDepts();
+          break;
+        case "Add Department":
+          addDept();
+          break;
+        case "Remove Department":
+          removeDept();
+          break;
+        case "View Total Utilized Budget By Department":
+          viewBudget();
+          break;
+        case "Quit":
+          quit();
+          break;
+        default:
+          "Error";
+      }
+    })
+  };    
 
 
 //Create Functions
