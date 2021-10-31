@@ -1,11 +1,11 @@
-INSERT INTO departments(department_names)
+INSERT INTO department(department_name)
 VALUES
-('Finance & Accouting'),
+('Finance/Accounting'),
 ('Management'),
 ('Sales'),
 ('Warehouse');
 
-INSERT INTO roles(title, salary, department_id)
+INSERT INTO role(title, salary, department_id)
 VALUES
 ('Accountant', 80000, 1),
 ('Financial Consultant', 750000, 1),
@@ -13,7 +13,7 @@ VALUES
 ('Sales Person', 50000, 3),
 ('Warehouse stalker', 35000, 4);
 
-INSERT INTO employees(first_name, last_name, role_id)
+INSERT INTO employee(first_name, last_name, role_id)
 VALUES
 ('Gandalf', 'The Grey', 1),
 ('Frodo', 'Baggins', 2),

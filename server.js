@@ -1,97 +1,141 @@
-
-const mysql = require('mysql2');
-const inquirer = require('inquirer');
-
-
-const PORT = process.env.PORT || 3001;
-const app = express();
-
-// Express middleware
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
+const mysql = require("mysql2");
+const inquirer = require("inquirer");
 
 //Create connection to database
 const db = mysql.createConnection(
   {
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'boba_db'
+    host: "localhost",
+    user: "root",
+    password: "",
+    database: "company_db",
   },
-  console.log(`Connected to the boba_db database.`)
+  console.log(`Connected to the company_db database.`)
 );
 
 // Function calling inquirer prompt for main menu questions
-const mainMenuPrompt = function() {
-    inquirer.prompt([
-        {
-            name: "mainMenu",
-            type: 'list',
-            message: 'Please select from the following:',
-            choices: [
-                
-                'View All Employees',
-                'View All Employees by Department',
-                'View All Employees by Manager',
-                'Add Employee',
-                'Remove Employee',
-                'Update Employee Role',
-                'Update Employee Manager',
-                'View All Roles',
-                'Add Role',
-                'Remove Role',
-                'View All Departments',
-                'Add Department',
-                'Remove Department',
-                'View Total Utilized Budget By Department',
-                'Quit',
-            ]
+const mainMenuPrompt = function () {
+  let mainMenuQuestions = inquirer.prompt([
+    {
+      name: "mainMenu",
+      type: "list",
+      message: "Please select from the following:",
+      choices: [
+        "View All Employees",
+        "View All Employees by Department",
+        "View All Employees by Manager",
+        "Add Employee",
+        "Remove Employee",
+        "Update Employee Role",
+        "Update Employee Manager",
+        "View All Roles",
+        "Add Role",
+        "Remove Role",
+        "View All Departments",
+        "Add Department",
+        "Remove Department",
+        "View Total Utilized Budget By Department",
+        "Quit",
+      ],
+    }])
+        .then((answer) => {
+        switch (answer) {
+          case "View All Employees":
+            allEmployees();
+            break;
+          case "View All Employees by Department":
+            allEmployeesByDept();
+            break;
+          case "View All Employees by Manager":
+            allEmployeesByManager();
+            break;
+          case "Add Employee":
+            addEmployee();
+            break;
+          case "Remove Employee":
+            removeEmployee();
+            break;
+          case "Update Employee Role":
+            updateEmployeeRole();
+            break;
+          case "Update Employee Manager":
+            updateManager();
+            break;
+          case "View All Roles":
+            viewAllRoles();
+            break;
+          case "View All Departments":
+            viewAllDepts();
+            break;
+          case "Add Department":
+            addDept();
+            break;
+          case "Remove Department":
+            removeDept();
+            break;
+          case "View Total Utilized Budget By Department":
+            viewBudget();
+            break;
+          case "Quit":
+            quit();
+            break;
+          default:
+            "Error";
         }
-        .then(function(answers) {
-// case 'name of quest', function to call what to do with information given, and break if that question is called
-            switch(answers) {
-                case 'View All Employees':
-                    //function;
-                    break;
-                case 'View All Employees by Department':
-                    //function;
-                    break;
-                case 'View All Employees by Manager':
-                    //function;
-                    break;
-                case 'Add Employee':
-                    //function;
-                    break;
-                case 'Remove Employee':
-                    //function;
-                    break;
-                case 'Update Employee Role':
-                    //function;
-                    break;
-                case 'Update Employee Manager':
-                    //function;
-                    break;
-                case 'View All Roles':
-                    //function;
-                    break;
-                case 'View All Departments':
-                    //function;
-                    break;
-                case 'Add Department':
-                    //function;
-                    break;
-                case 'Remove Department':
-                    //function;
-                    break;
-                case 'View Total Utilized Budget By Department':
-                    //function
-                    break;
-                 case 'Quit':
-                    //function
-                    break;
-            }
         })
-    ])
-}
+    
+};
+
 
 //Create Functions
+const allEmployees = () => {
+
+}
+
+const allEmployeesByDept = () => {
+    
+}
+
+const allEmployeesByManager = () => {
+    
+}
+
+const addEmployee = () => {
+    
+}
+
+
+const removeEmployee = () => {
+    
+}
+
+const updateEmployeeRole = () => {
+    
+}
+
+const updateManager = () => {
+    
+}
+
+const viewAllRoles = () => {
+    
+}
+
+const viewAllDepts = () => {
+    
+}
+
+const addDept = () => {
+    
+}
+
+const removeDept = () => {
+    
+}
+
+const viewBudget = () => {
+    
+}
+
+const quit = () => {
+    
+}
