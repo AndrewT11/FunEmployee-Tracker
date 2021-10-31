@@ -26,11 +26,16 @@ function mainMenuQuestions() {
       choices: [
         "View All Employees",
         "Add Employee",
+        "Remove Employee",
         "Update Employee Role",
         "View All Roles",
         "Add Role",
         "View All Departments",
         "Add Department",
+        "Remove Department",
+        "View Total Utilized Budget By Department",
+        "View All Employees by Department",
+        "View All Employees by Manager",
         "Quit",
       ],
     }
