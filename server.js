@@ -17,6 +17,7 @@ const db = mysql.createConnection(
 // Function calling inquirer prompt for main menu questions
 
 function mainMenuQuestions() {
+  console.log("mainMenuQuestions")
   inquirer.prompt([
     {
       name: "mainMenu",
@@ -35,8 +36,8 @@ function mainMenuQuestions() {
     }
   ])
     .then((answer) => {
-      console.log("switch")
-      switch (answer) {
+      console.log(answer)
+      switch (answer.mainMenu) {
         case "View All Employees":
           allEmployees();
           break;
@@ -70,7 +71,7 @@ function mainMenuQuestions() {
 
 //Create Functions
 function allEmployees() {
-  console.log("allEmployee")
+  console.log("allEmployees")
   let sql = 'select * from employee';
   db.query(sql, function(err, res) {
     if (err) {
@@ -84,7 +85,11 @@ function allEmployees() {
 };
 
 function addEmployee() {
-  let sql = `INSERT INTO employee VALUES (?)`;
+  inquirer.prompt ([
+
+  ])
+
+  let sql = `INSERT INTO employee(first_name, last_name, role_id)`;
   db.query(sql, function(err, res) {
   if (err) {
     console.log(err);
@@ -96,11 +101,15 @@ function addEmployee() {
 };
 
 function updateEmployeeRole() {
+     inquirer.prompt ([
     
+  ])
 };
 
 function updateManager() {
+  inquirer.prompt ([
     
+  ])
 };
 
 function viewAllRoles() {
@@ -140,11 +149,10 @@ function addDept() {
     db.query(sql, { name: answer.department }, (err, res) => {
       if (err) {
         console.log(err);
-        return err;
-        
+        return err;        
       }
-    console.table(res);
-    mainMenuQuestions();
+      console.table(res);
+      mainMenuQuestions();
     })
   });
 }
