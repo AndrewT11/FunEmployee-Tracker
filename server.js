@@ -36,7 +36,6 @@ function mainMenuQuestions() {
     }
   ])
     .then((answer) => {
-      console.log(answer)
       switch (answer.mainMenu) {
         case "View All Employees":
           allEmployees();
@@ -44,20 +43,38 @@ function mainMenuQuestions() {
         case "Add Employee":
           addEmployee();
           break;
+        case "Remove Employee":
+          removeEmployee();
+          break;
         case "Update Employee Role":
           updateEmployeeRole();
+          break;
+        case "Update Employee Manager":
+          updateManager();
           break;
         case "View All Roles":
           viewAllRoles();
           break;
         case "Add Role":
-          addDept();
+          addRole();
           break;
         case "View All Departments":
           viewAllDepts();
           break;
         case "Add Department":
           addDept();
+          break;
+        case "Remove Department":
+          removeDept();
+          break;
+        case "View Total Utilized Budget By Department":
+          viewBudget();
+          break;
+        case "View All Employees by Department":
+          allEmployeesByDept();
+          break;
+        case "View All Employees by Manager":
+          allEmployeesByManager();
           break;
         case "Quit":
           quit();
@@ -154,6 +171,37 @@ function addDept() {
       console.table(res);
       mainMenuQuestions();
     })
+  });
+}
+
+//bonus
+
+function allEmployeesByManager() {
+
+}
+
+function allEmployeesByDept() {
+
+}
+
+function removeDept() {
+  db.query(`DELETE FROM course_names WHERE id = ?`, 3, (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+    console.log(result);
+  });
+}
+
+function viewBudget() {
+
+}
+function removeEmployee () {
+  db.query(`DELETE FROM course_names WHERE id = ?`, 3, (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+    console.log(result);
   });
 }
 
