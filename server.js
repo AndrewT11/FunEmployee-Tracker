@@ -46,23 +46,11 @@ function mainMenuQuestions() {
         case "View All Employees":
           allEmployees();
           break;
-        case "View All Employees by Department":
-          allEmployeesByDept();
-          break;
-        case "View All Employees by Manager":
-          allEmployeesByManager();
-          break;
         case "Add Employee":
           addEmployee();
           break;
-        case "Remove Employee":
-          removeEmployee();
-          break;
         case "Update Employee Role":
           updateEmployeeRole();
-          break;
-        case "Update Employee Manager":
-          updateManager();
           break;
         case "View All Roles":
           viewAllRoles();
@@ -72,12 +60,6 @@ function mainMenuQuestions() {
           break;
         case "Add Department":
           addDept();
-          break;
-        case "Remove Department":
-          removeDept();
-          break;
-        case "View Total Utilized Budget By Department":
-          viewBudget();
           break;
         case "Quit":
           quit();
@@ -93,6 +75,7 @@ function mainMenuQuestions() {
 const allEmployees = () => {
   console.log("allEmployee")
   let sql = 'select * from employee';
+
   createConnection.query(sql, function(err, res) {
     if (err) {
       res.status(400)
@@ -105,53 +88,42 @@ const allEmployees = () => {
 
 const allEmployeesByDept = () => {
   
-  const sql = `select * 
-              from employee 
-              group by department`;
-  
+  const sql = `select * from employee group by department`;
+
+    createConnection.query(sql, function(err, res) {
     if (err) {
       res.status(500)   
     }
     console.table(res);
     mainMenuQuestions();
+  })
 }
 
 const allEmployeesByManager = () => {
-  const sql = `select * 
-              from employee
-              where role_id = 2`;
-  
+  const sql = `select * from employee where role_id = 2`;
+
+  createConnection.query(sql, function(err, res) {
     if (err) {
       res.status(500)
     }
     console.table(res);
-    mainMenuQuestions();
-   
+    mainMenuQuestions(); 
+  })
 }
 
 const addEmployee = () => {
-  const sql = `INSERT INTO employee 
-  VALUES (?)`;
-const params = [body.movie_name];
+  const sql = `INSERT INTO employee VALUES (?)`;
 
-db.query(sql, params, (err, result) => {
+  createConnection.query(sql, function(err, res) {
   if (err) {
-    res.status(400).json({ error: err.message });
-    return;
+    res.status(400)
   }
-
+  console.table(res);
+  mainMenuQuestions();
   });
 }
 
 
-
-const removeEmployee = () => {
-  db.query(`DELETE FROM course_names WHERE id = ?`, 3, (err, result) => {
-    if (err) {
-      console.log(err);
-    }
-    console.log(result);
-  });
 }
 
 const updateEmployeeRole = () => {
@@ -185,34 +157,15 @@ const viewAllDepts = () => {
 }
 
 const addDept = () => {
-  const sql = `INSERT INTO movies (movie_name)
-  VALUES (?)`;
-const params = [body.movie_name];
+  const sql = `INSERT INTO department VALUES (?)`;
 
-db.query(sql, params, (err, result) => {
   if (err) {
-    res.status(400).json({ error: err.message });
-    return;
+    res.status(400);
   }
-  res.json({
-    message: 'success',
-    data: body
-  });
-});
+  console.table(res);
+  mainMenuQuestions();
 }
 
-const removeDept = () => {
-  db.query(`DELETE FROM course_names WHERE id = ?`, 3, (err, result) => {
-    if (err) {
-      console.log(err);
-    }
-    console.log(result);
-  });
-}
-
-const viewBudget = () => {
-    
-}
 
 const quit = () => {
     
