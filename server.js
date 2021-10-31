@@ -130,7 +130,7 @@ const allEmployeesByManager = () => {
 }
 
 const addEmployee = () => {
-  const sql = `INSERT INTO movies (movie_name)
+  const sql = `INSERT INTO employee 
   VALUES (?)`;
 const params = [body.movie_name];
 
@@ -146,7 +146,12 @@ db.query(sql, params, (err, result) => {
 
 
 const removeEmployee = () => {
-    
+  db.query(`DELETE FROM course_names WHERE id = ?`, 3, (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+    console.log(result);
+  });
 }
 
 const updateEmployeeRole = () => {
@@ -158,11 +163,25 @@ const updateManager = () => {
 }
 
 const viewAllRoles = () => {
-    
+  let sql = 'select * from employee';
+  createConnection.query(query, function(err, res) {
+    if (err) {
+      res.status(400)
+    }
+    console.table(res);
+    mainMenuQuestions();
+  })
 }
 
 const viewAllDepts = () => {
-    
+  let sql = 'select * from employee';
+  createConnection.query(query, function(err, res) {
+    if (err) {
+      res.status(400)
+    }
+    console.table(res);
+    mainMenuQuestions();
+  })
 }
 
 const addDept = () => {
@@ -183,7 +202,12 @@ db.query(sql, params, (err, result) => {
 }
 
 const removeDept = () => {
-    
+  db.query(`DELETE FROM course_names WHERE id = ?`, 3, (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+    console.log(result);
+  });
 }
 
 const viewBudget = () => {
