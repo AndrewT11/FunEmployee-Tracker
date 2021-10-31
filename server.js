@@ -1,6 +1,5 @@
 const mysql = require("mysql2");
 const inquirer = require("inquirer");
-const { createConnection } = require("net");
 const cTable = require("console.table");
 
 //Create connection to database
@@ -26,7 +25,6 @@ function mainMenuQuestions() {
         "View All Employees",
         "Add Employee",
         "Update Employee Role",
-        "Update Employee Manager",
         "View All Roles",
         "Add Role",
         "View All Departments",
@@ -73,7 +71,7 @@ const allEmployees = () => {
   console.log("allEmployee")
   let sql = 'select * from employee';
 
-  createConnection.query(sql, function(err, res) {
+  db.query(sql, function(err, res) {
     if (err) {
       res.status(400)
     }
@@ -87,7 +85,7 @@ const allEmployeesByDept = () => {
   
   const sql = `select * from employee group by department`;
 
-    createConnection.query(sql, function(err, res) {
+    db.query(sql, function(err, res) {
     if (err) {
       res.status(500)   
     }
@@ -99,7 +97,7 @@ const allEmployeesByDept = () => {
 const allEmployeesByManager = () => {
   const sql = `select * from employee where role_id = 2`;
 
-  createConnection.query(sql, function(err, res) {
+  db.query(sql, function(err, res) {
     if (err) {
       res.status(500)
     }
@@ -111,7 +109,7 @@ const allEmployeesByManager = () => {
 const addEmployee = () => {
   const sql = `INSERT INTO employee VALUES (?)`;
 
-  createConnection.query(sql, function(err, res) {
+  db.query(sql, function(err, res) {
   if (err) {
     res.status(400)
   }
@@ -130,7 +128,7 @@ const updateManager = () => {
 
 const viewAllRoles = () => {
   let sql = 'select title from role';
-  createConnection.query(sql, function(err, res) {
+  db.query(sql, function(err, res) {
     if (err) {
       res.status(400)
     }
@@ -141,7 +139,7 @@ const viewAllRoles = () => {
 
 const viewAllDepts = () => {
   let sql = 'select * from department';
-  createConnection.query(sql, function(err, res) {
+  db.query(sql, function(err, res) {
     if (err) {
       res.status(400)
     }
@@ -151,7 +149,23 @@ const viewAllDepts = () => {
 }
 
 const addDept = () => {
-  const sql = `INSERT INTO department VALUES (?)`;
+  inquirer.prompt([
+    {
+        type: 'input',
+        name: 'department',
+        message: 'What is the department name?'
+    }
+])
+  .then((answer) => {
+    const sql = `INSERT INTO department VALUES (?)`;
+
+    db.query(sql, 
+      {
+        name: `${answer.department}`
+      }
+    )
+
+  })
 
   if (err) {
     res.status(400);
