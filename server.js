@@ -104,6 +104,7 @@ const allEmployees = () => {
 }
 
 const allEmployeesByDept = () => {
+  
   const sql = `select * 
               from employee 
               group by department`;
@@ -114,8 +115,7 @@ const allEmployeesByDept = () => {
     }
     console.table(res);
     mainMenuQuestions();
-
-}
+})
 
 const allEmployeesByManager = () => {
   const sql = `select * 
