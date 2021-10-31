@@ -34,6 +34,7 @@ function mainMenuQuestions() {
     }
   ])
     .then((answer) => {
+      console.log("switch")
       switch (answer) {
         case "View All Employees":
           allEmployees();
@@ -62,7 +63,7 @@ function mainMenuQuestions() {
         default:
           "Error";
       }
-    })
+    });
   };    
 
 
@@ -73,13 +74,13 @@ const allEmployees = () => {
 
   db.query(sql, function(err, res) {
     if (err) {
-      res.status(400)
+      return err;
     }
     console.table(res);
     mainMenuQuestions();
-  })
+  });
 
-}
+};
 
 const allEmployeesByDept = () => {
   
@@ -87,66 +88,66 @@ const allEmployeesByDept = () => {
 
     db.query(sql, function(err, res) {
     if (err) {
-      res.status(500)   
+      return err;   
     }
     console.table(res);
     mainMenuQuestions();
-  })
-}
+  });
+};
 
 const allEmployeesByManager = () => {
   const sql = `select * from employee where role_id = 2`;
 
   db.query(sql, function(err, res) {
     if (err) {
-      res.status(500)
+      return err;
     }
     console.table(res);
     mainMenuQuestions(); 
-  })
-}
+  });
+};;
 
 const addEmployee = () => {
   const sql = `INSERT INTO employee VALUES (?)`;
 
   db.query(sql, function(err, res) {
   if (err) {
-    res.status(400)
+    return err;
   }
   console.table(res);
   mainMenuQuestions();
   });
-}
+};
 
 const updateEmployeeRole = () => {
     
-}
+};
 
 const updateManager = () => {
     
-}
+};
 
 const viewAllRoles = () => {
   let sql = 'select title from role';
   db.query(sql, function(err, res) {
     if (err) {
-      res.status(400)
+      return err;
     }
     console.table(res);
     mainMenuQuestions();
-  })
-}
+  });
+};
 
 const viewAllDepts = () => {
   let sql = 'select * from department';
   db.query(sql, function(err, res) {
     if (err) {
-      res.status(400)
+      return err;
     }
     console.table(res);
     mainMenuQuestions();
-  })
-}
+  });
+};
 
 const addDept = () => {
   inquirer.prompt([
@@ -165,18 +166,18 @@ const addDept = () => {
       }
     )
 
-  })
+  });
 
   if (err) {
-    res.status(400);
+    return err;
   }
   console.table(res);
   mainMenuQuestions();
-}
+};
 
 
 const quit = () => {
     
-}
+};
 
 mainMenuQuestions();
