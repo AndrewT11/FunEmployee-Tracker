@@ -1,6 +1,7 @@
 const mysql = require("mysql2");
 const inquirer = require("inquirer");
 const cTable = require("console.table");
+const chalk = require('chalk');
 
 
 //Create connection to database
@@ -17,7 +18,12 @@ const db = mysql.createConnection(
 // Function calling inquirer prompt for main menu questions
 
 function mainMenuQuestions() {
-  console.log("mainMenuQuestions")
+  console.log(chalk.blue(`          Welcome to the`));
+  console.log(chalk.green(`            Super Fun`));
+  console.log(chalk.yellowBright(`           FunEmployee`));
+  console.log(chalk.magentaBright(`             Tracker`));
+  console.log(chalk.greenBright(`               App`));
+  console.log(chalk.blueBright(`           !!!!!!!!!!`));
   inquirer.prompt([
     {
       name: "mainMenu",
@@ -167,7 +173,7 @@ function addDept() {
     }
 ])
   .then((answer) => {
-    let sql = `INSERT INTO department VALUES (?)`;
+    let sql = `INSERT INTO department VALUES (${answer.department})`;
     db.query(sql, { name: answer.department }, (err, res) => {
       if (err) {
         console.log(err);
