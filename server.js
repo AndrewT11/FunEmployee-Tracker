@@ -114,7 +114,7 @@ const allEmployeesByDept = () => {
     }
     console.table(res);
     mainMenuQuestions();
-})
+}
 
 const allEmployeesByManager = () => {
   const sql = `select * 
@@ -141,8 +141,8 @@ db.query(sql, params, (err, result) => {
   }
 
   });
-});
 }
+
 
 
 const removeEmployee = () => {
