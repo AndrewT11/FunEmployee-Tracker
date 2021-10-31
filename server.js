@@ -109,7 +109,6 @@ const allEmployeesByDept = () => {
               from employee 
               group by department`;
   
-  db.query(sql, (err, rows) => {
     if (err) {
       res.status(500)   
     }
