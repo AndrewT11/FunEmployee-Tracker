@@ -125,7 +125,7 @@ function viewAllRoles() {
 };
 
 function viewAllDepts() {
-  let sql = 'select * from department';
+  let sql = 'select department_name from department';
   db.query(sql, function(err, res) {
     if (err) {
       console.log(err);
