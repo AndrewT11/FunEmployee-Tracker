@@ -123,9 +123,6 @@ const addEmployee = () => {
   });
 }
 
-
-}
-
 const updateEmployeeRole = () => {
     
 }
