@@ -94,7 +94,9 @@ const allEmployees = () => {
   console.log("allEmployee")
   let sql = 'select * from employee';
   createConnection.query(query, function(err, res) {
-    if (err) throw err;
+    if (err) {
+      res.status(400)
+    }
     console.table(res);
     mainMenuQuestions();
   })
@@ -102,15 +104,45 @@ const allEmployees = () => {
 }
 
 const allEmployeesByDept = () => {
-    
+  const sql = `select * 
+              from employee 
+              group by department`;
+  
+  db.query(sql, (err, rows) => {
+    if (err) {
+      res.status(500)   
+    }
+    console.table(res);
+    mainMenuQuestions();
+
 }
 
 const allEmployeesByManager = () => {
-    
+  const sql = `select * 
+              from employee
+              where role_id = 2`;
+  
+    if (err) {
+      res.status(500)
+    }
+    console.table(res);
+    mainMenuQuestions();
+   
 }
 
 const addEmployee = () => {
-    
+  const sql = `INSERT INTO movies (movie_name)
+  VALUES (?)`;
+const params = [body.movie_name];
+
+db.query(sql, params, (err, result) => {
+  if (err) {
+    res.status(400).json({ error: err.message });
+    return;
+  }
+
+  });
+});
 }
 
 
@@ -135,7 +167,20 @@ const viewAllDepts = () => {
 }
 
 const addDept = () => {
-    
+  const sql = `INSERT INTO movies (movie_name)
+  VALUES (?)`;
+const params = [body.movie_name];
+
+db.query(sql, params, (err, result) => {
+  if (err) {
+    res.status(400).json({ error: err.message });
+    return;
+  }
+  res.json({
+    message: 'success',
+    data: body
+  });
+});
 }
 
 const removeDept = () => {
