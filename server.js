@@ -2,6 +2,7 @@ const mysql = require("mysql2");
 const inquirer = require("inquirer");
 const cTable = require("console.table");
 
+
 //Create connection to database
 const db = mysql.createConnection(
   {
@@ -71,9 +72,9 @@ function mainMenuQuestions() {
 function allEmployees() {
   console.log("allEmployee")
   let sql = 'select * from employee';
-
   db.query(sql, function(err, res) {
     if (err) {
+      console.log(err);
       return err;
     }
     console.table(res);
@@ -81,37 +82,12 @@ function allEmployees() {
   });
 
 };
-
-function allEmployeesByDept() {
-  
-  let sql = `select * from employee group by department`;
-
-    db.query(sql, function(err, res) {
-    if (err) {
-      return err;   
-    }
-    console.table(res);
-    mainMenuQuestions();
-  });
-};
-
-function allEmployeesByManager() {
-  let sql = `select * from employee where role_id = 2`;
-
-  db.query(sql, function(err, res) {
-    if (err) {
-      return err;
-    }
-    console.table(res);
-    mainMenuQuestions(); 
-  });
-};;
 
 function addEmployee() {
   let sql = `INSERT INTO employee VALUES (?)`;
-
   db.query(sql, function(err, res) {
   if (err) {
+    console.log(err);
     return err;
   }
   console.table(res);
@@ -131,6 +107,7 @@ function viewAllRoles() {
   let sql = 'select title from role';
   db.query(sql, function(err, res) {
     if (err) {
+      console.log(err);
       return err;
     }
     console.table(res);
@@ -142,6 +119,7 @@ function viewAllDepts() {
   let sql = 'select * from department';
   db.query(sql, function(err, res) {
     if (err) {
+      console.log(err);
       return err;
     }
     console.table(res);
@@ -159,25 +137,20 @@ function addDept() {
 ])
   .then((answer) => {
     let sql = `INSERT INTO department VALUES (?)`;
-
-    db.query(sql, 
-      {
-        name: `${answer.department}`
+    db.query(sql, { name: answer.department }, (err, res) => {
+      if (err) {
+        console.log(err);
+        return err;
+        
       }
-    )
-
+    console.table(res);
+    mainMenuQuestions();
+    })
   });
-
-  if (err) {
-    return err;
-  }
-  console.table(res);
-  mainMenuQuestions();
-};
-
+}
 
 function quit() {
-    
+    connection.end()
 };
 
 mainMenuQuestions();
