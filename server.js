@@ -170,7 +170,7 @@ function viewAllDepts() {
 };
 // WHEN I choose to add a department
 // THEN I am prompted to enter the name of the department and that department is added to the database
-// function addDept() {
+function addDept() {
   inquirer.prompt([
     {
         type: 'input',
@@ -189,7 +189,8 @@ function viewAllDepts() {
       mainMenuQuestions();
     })
   });
-}
+};
+
 
 //bonus
 
