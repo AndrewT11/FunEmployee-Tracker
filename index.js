@@ -150,16 +150,17 @@ const addEmployee = async () => {
   });
 };
 
-const updateEmployeeRole= async () => {
-     const { id, newRole } = await inquirer.prompt ([
+const updateEmployeeRole = async () => {
+  console.log("updateEmployeeRole")
+     const { id, newRoleId } = await inquirer.prompt ([
       {
-        name: id,
-        type: input,
+        name: "id",
+        type: "input",
         message: "ID of employee you wish to role update"
       },
       {
-        name: newRole,
-        type: choices,
+        name: 'newRoleId',
+        type: 'choices',
         message: "Choose new role ID for employee",
         choices: [
           "2",
@@ -169,21 +170,22 @@ const updateEmployeeRole= async () => {
           "6"
         ]
       }
-  ]);
+  ])
+ 
+      let sql = `UPDATE employee SET role_id=(?) WHERE id =(?)`;
+
+      let params = [id, newRoleId]
+    
+      db.query(sql, function(err, res) {
+        if (err) {
+          console.log(err);
+          return err;
+        }
+        console.table(res);
+        mainMenuQuestions();
+      })
+    
 };
-
-let sql = `UPDATE employee SET role_id='?' WHERE id ='?'`;
-
-let params = [id, newRole]
-
-db.query(sql, params, function(err, res) {
-  if (err) {
-    console.log(err);
-    return err;
-  }
-  console.table(res);
-  mainMenuQuestions();
-});
 
 // WHEN I choose to view all roles
 // THEN I am presented with the job title, role id, the department that role belongs to, and the salary for that role
