@@ -34,7 +34,10 @@ let sql = `INSERT INTO department (department_name) VALUES ('${answer.department
 -- WHEN I choose to ADD EMPLOYEE
 -- THEN I am prompted to enter the employee’s first name, last name, role, and manager, and that employee is added to the database
 
-INSERT INTO employee (firstName, lastName, role, manager_id) VALUES ('${firstName}', '${lastName}', '${role}', '${managerId}')
+INSERT INTO employee (firstName, lastName, role, manager_id) VALUES (?,?,?,?);
+
+
+(`'${firstName}', '${lastName}', '${role}', '${managerId}'`)
 
 
 -- WHEN I choose to Update Employee Role

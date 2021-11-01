@@ -147,10 +147,10 @@ const addEmployee = async () => {
       type: "list",
       message: "Please select manager id, if any.",
       choices: [
-        "1",
         "2",
         "3",
-        "NULL"
+        "4",
+        "5"
       ]
     }
   ])
@@ -158,7 +158,7 @@ const addEmployee = async () => {
 
   let sql = `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?,?,?,?);`;
 
-  parseInt(managerId);
+parseInt(managerId);
 console.log(managerId);
   let params = [firstName, lastName, roleId, managerId]
 
