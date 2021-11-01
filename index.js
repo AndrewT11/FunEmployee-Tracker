@@ -153,7 +153,7 @@ const addEmployee = async () => {
   });
 };
 
-// WHEN I choose to update an employee role xxx
+// WHEN I choose to update an employee role xxx /same foreign key problem
 // THEN I am prompted to select an employee to update and their new role and this information is updated in the database 
 const updateEmployeeRole = async () => {
   console.log("updateEmployeeRole")
@@ -192,10 +192,10 @@ const updateEmployeeRole = async () => {
     
 };
 
-// WHEN I choose to view all roles ***
+// WHEN I choose to view all roles *** 
 // THEN I am presented with the job title, role id, the department that role belongs to, and the salary for that role
 function viewAllRoles() {
-  let sql = 'SELECT r.title, e.role_id, d.department_name AS Department, r.salary FROM employee e JOIN role r ON e.role_id = r.id JOIN department d ON d.id = r.department_id GROUP BY d.department_name '
+  let sql = 'SELECT r.title, r.id, d.department_name AS Department, r.salary FROM role r JOIN department d ON d.id = r.department_id'
   db.query(sql, function(err, res) {
     if (err) {
       console.log(err);
@@ -245,7 +245,7 @@ function viewAllRoles() {
   
 // };
 
-// WHEN I choose to add a role xxx does not add role. problem with foreign keys primary keys
+// WHEN I choose to add a role /xxx does not add role. problem with foreign keys primary keys
 // THEN I am prompted to enter the name, salary, and department for the role and that role is added to the database
 function addRole() {
   inquirer.prompt([
@@ -273,8 +273,11 @@ function addRole() {
     },
 ])
   .then((answer) => {
-    let sql = `INSERT INTO role (title, department_id, salary) VALUES ('${answer.role}','${answer.department}','${answer.salary}')`;
-    db.query(sql, (err, res) => {
+    let sql = `INSERT INTO role (title, salary, department_id) VALUES (?,?,?)`;
+
+  let params = [answer.role, answer.salary, parseInt(answer.department)]
+
+    db.query(sql, params, (err, res) => {
       if (err) {
         console.log(err);
         return err;        
