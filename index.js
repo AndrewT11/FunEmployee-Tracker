@@ -145,7 +145,7 @@ const addEmployee = async () => {
     console.log(err);
     return err;
   }
-  console.table(res);
+  console.log("New Employee Added!")
   mainMenuQuestions();
   });
 };
@@ -176,7 +176,7 @@ const updateEmployeeRole = async () => {
 
       let params = [id, newRoleId]
     
-      db.query(sql, function(err, res) {
+      db.query(sql, params, function(err, res) {
         if (err) {
           console.log(err);
           return err;
