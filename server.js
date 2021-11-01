@@ -15,15 +15,19 @@ const db = mysql.createConnection(
   console.log(`Connected to the company_db database.`)
 );
 
-// Function calling inquirer prompt for main menu questions
-
-function mainMenuQuestions() {
+// Welcome
+hello();
+function hello() {
   console.log(chalk.blue(`          Welcome to the`));
   console.log(chalk.green(`            Super Fun`));
   console.log(chalk.yellowBright(`           FunEmployee`));
   console.log(chalk.magentaBright(`             Tracker`));
   console.log(chalk.greenBright(`               App`));
   console.log(chalk.blueBright(`           !!!!!!!!!!`));
+}
+
+// Function calling inquirer prompt for main menu questions
+function mainMenuQuestions() {
   inquirer.prompt([
     {
       name: "mainMenu",
@@ -102,7 +106,7 @@ function mainMenuQuestions() {
 // THEN I am presented with a formatted table showing employee data, including employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to
 function allEmployees() {
   console.log("allEmployees")
-  let sql = 'select * from employee';
+  let sql = 'SELECT e.id, e.first_name, e.last_name, r.title, d.department_name, r.salary, m.manager_id, m.first_name, m.last_name FROM employee e JOIN role r ON e.role_id = r.id JOIN department d ON d.id = r.department_id LEFT JOIN employee m ON e.manager_id = m.id;'
   db.query(sql, function(err, res) {
     if (err) {
       console.log(err);
