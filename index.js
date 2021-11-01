@@ -119,7 +119,7 @@ function allEmployees() {
 };
 
 const addEmployee = async () => {
-  const { firstName, lastName, role, managerId } = await inquirer.prompt ([
+  const { firstName, lastName, roleId, managerId } = await inquirer.prompt ([
     {
       name: "firstName",
       type: "input",
@@ -131,15 +131,15 @@ const addEmployee = async () => {
       message: "Enter last name"
     },
     {
-      name: "role",
+      name: "roleId",
       type: "list",
-      message: "What is the new employee's role?",
+      message: "What is the new employee's role id?",
       choices: [
-        "King",
-        "Finance",
-        "Accountant",
-        "Sales",
-        "Warehouse"
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
       ]
     },
     {
@@ -156,8 +156,13 @@ const addEmployee = async () => {
   ])
 
 
-  let sql = `INSERT INTO employee(first_name, last_name, role_id)`;
-  db.query(sql, function(err, res) {
+  let sql = `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?,?,?,?);`;
+
+  parseInt(managerId);
+console.log(managerId);
+  let params = [firstName, lastName, roleId, managerId]
+
+  db.query(sql, params, function(err, res) {
   if (err) {
     console.log(err);
     return err;
