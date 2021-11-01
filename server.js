@@ -106,7 +106,7 @@ function mainMenuQuestions() {
 // THEN I am presented with a formatted table showing employee data, including employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to
 function allEmployees() {
   console.log("allEmployees")
-  let sql = 'SELECT e.id, e.first_name, e.last_name, r.title, d.department_name, r.salary, m.manager_id, m.first_name, m.last_name FROM employee e JOIN role r ON e.role_id = r.id JOIN department d ON d.id = r.department_id LEFT JOIN employee m ON e.manager_id = m.id'
+  let sql = 'SELECT e.id, e.first_name, e.last_name, r.title, d.department_name, r.salary, e.manager_id FROM employee e JOIN role r ON e.role_id = r.id JOIN department d ON d.id = r.department_id'
   db.query(sql, function(err, res) {
     if (err) {
       console.log(err);
@@ -118,10 +118,43 @@ function allEmployees() {
 
 };
 
-function addEmployee() {
-  inquirer.prompt ([
-
+const addEmployee = async () => {
+  const { firstName, lastName, role, managerId } = await inquirer.prompt ([
+    {
+      name: "firstName",
+      type: "input",
+      message: "Enter first name"
+    },
+    {
+      name: "lastName",
+      type: "input",
+      message: "Enter last name"
+    },
+    {
+      name: "role",
+      type: "list",
+      message: "What is the new employee's role?",
+      choices: [
+        "King",
+        "Finance",
+        "Accountant",
+        "Sales",
+        "Warehouse"
+      ]
+    },
+    {
+      name: "managerId",
+      type: "list",
+      message: "Please select manager id, if any.",
+      choices: [
+        "1",
+        "2",
+        "3",
+        "NULL"
+      ]
+    }
   ])
+
 
   let sql = `INSERT INTO employee(first_name, last_name, role_id)`;
   db.query(sql, function(err, res) {
@@ -183,13 +216,12 @@ function addDept() {
     }
 ])
   .then((answer) => {
-    let sql = `INSERT INTO department (department_name) VALUES (${answer.department})`;
+    let sql = `INSERT INTO department (department_name) VALUES ('${answer.department}')`;
     db.query(sql, (err, res) => {
       if (err) {
         console.log(err);
         return err;        
       }
-      console.table(res);
       mainMenuQuestions();
     })
   });
@@ -237,7 +269,8 @@ function removeEmployee () {
 }
 
 function quit() {
-    connection.end()
+    // connection.end()
+    process.exit(0)
 };
 
 mainMenuQuestions();
