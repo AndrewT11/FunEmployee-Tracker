@@ -79,7 +79,8 @@ function mainMenuQuestions() {
 
 
 //Create Functions
-// WHEN I choose to view all employees
+
+// WHEN I choose to view all employees ***
 // THEN I am presented with a formatted table showing employee data, including employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to
 function allEmployees() {
   console.log("allEmployees")
@@ -95,6 +96,8 @@ function allEmployees() {
 
 };
 
+// WHEN I choose to add an employee ***
+// THEN I am prompted to enter the employee’s first name, last name, role, and manager, and that employee is added to the database
 const addEmployee = async () => {
   const { firstName, lastName, roleId, managerId } = await inquirer.prompt ([
     {
@@ -150,6 +153,8 @@ const addEmployee = async () => {
   });
 };
 
+// WHEN I choose to update an employee role xxx
+// THEN I am prompted to select an employee to update and their new role and this information is updated in the database 
 const updateEmployeeRole = async () => {
   console.log("updateEmployeeRole")
      const { id, newRoleId } = await inquirer.prompt ([
@@ -160,7 +165,7 @@ const updateEmployeeRole = async () => {
       },
       {
         name: 'newRoleId',
-        type: 'choices',
+        type: 'list',
         message: "Choose new role ID for employee",
         choices: [
           "2",
@@ -172,7 +177,7 @@ const updateEmployeeRole = async () => {
       }
   ])
  
-      let sql = `UPDATE employee SET role_id=(?) WHERE id =(?)`;
+      let sql = `UPDATE employee SET role_id=? WHERE id =?`;
 
       let params = [id, newRoleId]
     
@@ -187,7 +192,7 @@ const updateEmployeeRole = async () => {
     
 };
 
-// WHEN I choose to view all roles
+// WHEN I choose to view all roles ***
 // THEN I am presented with the job title, role id, the department that role belongs to, and the salary for that role
 function viewAllRoles() {
   let sql = 'SELECT r.title, e.role_id, d.department_name AS Department, r.salary FROM employee e JOIN role r ON e.role_id = r.id JOIN department d ON d.id = r.department_id GROUP BY d.department_name '
@@ -201,7 +206,86 @@ function viewAllRoles() {
   });
 };
 
-// WHEN I choose to view all departments
+// const addRole = async () => {
+//   const { role, salary, department } = await inquirer.prompt([
+//     {
+//         type: 'input',
+//         name: 'role',
+//         message: 'What is the role name?'
+//     },
+//     {
+//       type: 'input',
+//       name: 'salary',
+//       message: 'What is the role salary?'
+//     },
+//     {
+//     type: 'choice',
+//     name: 'department',
+//     message: 'What is the role department id?',
+//     choices: [
+//       "2",
+//       "3",
+//       "4",
+//       "5",
+//       "6"
+//     ]
+//     },
+// ])
+//     let sql = `INSERT INTO role (title, salary, department_id) VALUES (?,?,?)`;
+
+//     let params = [role, salary, department]
+    
+//     db.query(sql, params, (err, res) => {
+//       if (err) {
+//         console.log(err);
+//         return err;        
+//       }
+//       mainMenuQuestions();
+//     })
+  
+// };
+
+// WHEN I choose to add a role xxx does not add role. problem with foreign keys primary keys
+// THEN I am prompted to enter the name, salary, and department for the role and that role is added to the database
+function addRole() {
+  inquirer.prompt([
+    {
+      type: 'input',
+      name: 'role',
+      message: 'What is the role name?'
+    },
+    {
+      type: 'input',
+      name: 'salary',
+      message: 'What is the role salary?'
+    },
+    {
+    type: 'choice',
+    name: 'department',
+    message: 'What is the role department id?',
+    choices: [
+      "2",
+      "3",
+      "4",
+      "5",
+      "6"
+    ]
+    },
+])
+  .then((answer) => {
+    let sql = `INSERT INTO role (title, department_id, salary) VALUES ('${answer.role}','${answer.department}','${answer.salary}')`;
+    db.query(sql, (err, res) => {
+      if (err) {
+        console.log(err);
+        return err;        
+      }
+      console.table(answer)
+      mainMenuQuestions();
+    })
+  });
+};
+
+// WHEN I choose to view all departments ***
 // THEN I am presented with a formatted table showing department names and department ids
 function viewAllDepts() {
   let sql = 'select * from department';
@@ -214,7 +298,7 @@ function viewAllDepts() {
     mainMenuQuestions();
   });
 };
-// WHEN I choose to add a department
+// WHEN I choose to add a department ***
 // THEN I am prompted to enter the name of the department and that department is added to the database
 function addDept() {
   inquirer.prompt([
@@ -236,9 +320,12 @@ function addDept() {
   });
 };
 
+// WHEN I choose to quit
+// THEN I exit the program
 function quit() {
     // connection.end()
     process.exit(0)
 };
 
+// start command line app
 mainMenuQuestions();
