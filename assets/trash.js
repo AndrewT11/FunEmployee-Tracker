@@ -82,3 +82,42 @@ function mainMenuQuestions() {
         ],
         }
     ])
+
+    const addRole = async () => {
+      const { role, salary, department } = await inquirer.prompt([
+        {
+            type: 'input',
+            name: 'role',
+            message: 'What is the role name?'
+        },
+        {
+          type: 'input',
+          name: 'salary',
+          message: 'What is the role salary?'
+        },
+        {
+        type: 'choice',
+        name: 'department',
+        message: 'What is the role department id?',
+        choices: [
+          "2",
+          "3",
+          "4",
+          "5",
+          "6"
+        ]
+        },
+    ])
+        let sql = `INSERT INTO role (title, salary, department_id) VALUES (?,?,?)`;
+    
+        let params = [role, salary, department]
+    
+        db.query(sql, params, (err, res) => {
+          if (err) {
+            console.log(err);
+            return err;
+          }
+          mainMenuQuestions();
+        })
+    
+    };
