@@ -44,16 +44,19 @@ THEN I am prompted to select an employee to update and their new role and this i
 
 ## Media
 
-Video Link: https://drive.google.com/file/d/1T7l87CgCK__L1DTm9UTIFNQvapC50GnQ/view?usp=sharing
+Video Link: 
 
 
 ## Links
-* [Deployed Website Link](https://andrewt11.github.io/1st-Team-All-Pro-file/)
-* [Code Repository Link](https://github.com/AndrewT11/1st-Team-All-Pro-file/)
+* [Deployed Website Link](https://andrewt11.github.io/FunEmployee-Tracker/)
+* [Code Repository Link](https://github.com/AndrewT11/FunEmployee-Tracker)
 
 ## Credits
 Andrew Tran
-
+Cody Clark (BCS TA)
+Sangeetha Kaliaperumal (BCS Tutor)
+Javier (BCS Assistant who deserves a raise)
+Chris Stallcup
 
 ### Resources
 
@@ -61,6 +64,8 @@ Andrew Tran
 * https://developer.mozilla.org/en-US/
 * https://choosealicense.com/
 * https://www.stackoverflow.com
+* https://www.mysqltutorial.org/
+
 
 
 
