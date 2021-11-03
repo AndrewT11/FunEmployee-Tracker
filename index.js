@@ -75,7 +75,7 @@ function mainMenuQuestions() {
           "Error";
       }
     });
-  };    
+};
 
 
 //Create Functions
@@ -85,7 +85,7 @@ function mainMenuQuestions() {
 function allEmployees() {
   console.log("allEmployees")
   let sql = 'SELECT e.id, e.first_name, e.last_name, r.title, d.department_name, r.salary, e.manager_id FROM employee e JOIN role r ON e.role_id = r.id JOIN department d ON d.id = r.department_id'
-  db.query(sql, function(err, res) {
+  db.query(sql, function (err, res) {
     if (err) {
       console.log(err);
       return err;
@@ -99,7 +99,7 @@ function allEmployees() {
 // WHEN I choose to add an employee ***
 // THEN I am prompted to enter the employee’s first name, last name, role, and manager, and that employee is added to the database
 const addEmployee = async () => {
-  const { firstName, lastName, roleId, managerId } = await inquirer.prompt ([
+  const { firstName, lastName, roleId, managerId } = await inquirer.prompt([
     {
       name: "firstName",
       type: "input",
@@ -143,60 +143,81 @@ const addEmployee = async () => {
 
   let params = [firstName, lastName, roleId, managerId]
 
-  db.query(sql, params, function(err, res) {
-  if (err) {
-    console.log(err);
-    return err;
-  }
-  console.log("New Employee Added!")
-  mainMenuQuestions();
+  db.query(sql, params, function (err, res) {
+    if (err) {
+      console.log(err);
+      return err;
+    }
+    console.log("New Employee Added!")
+    mainMenuQuestions();
   });
 };
 
-// WHEN I choose to update an employee role xxx /same foreign key problem
+// WHEN I choose to update an employee role xxx 
 // THEN I am prompted to select an employee to update and their new role and this information is updated in the database 
-const updateEmployeeRole = async () => {
-  console.log("updateEmployeeRole")
-     const { id, newRoleId } = await inquirer.prompt ([
-      {
-        name: "id",
-        type: "input",
-        message: "ID of employee you wish to role update"
-      },
-      {
-        name: 'newRoleId',
-        type: 'list',
-        message: "Choose new role ID for employee",
-        choices: [
-          "2",
-          "3",
-          "4",
-          "5",
-          "6"
-        ]
-      }
-  ])
- 
-      let sql = `UPDATE employee SET role_id=? WHERE id =?`;
+const updateEmployeeRole = () => {
 
-      let params = [id, newRoleId]
-    
-      db.query(sql, params, function(err, res) {
-        if (err) {
-          console.log(err);
-          return err;
+  let sql = `SELECT id, first_name, last_name, id FROM employee`;
+
+  db.query(sql, function (err, res) {
+    if (err) throw err;
+    var employeeIDS = []
+    console.log(res)
+    res.map(emp => (employeeIDS.push({ name: emp.first_name + "," + emp.last_name, value: emp.id })))
+
+    db.query("SELECT id, title from role", function (err2, res2) {
+      var roleIDS = []
+      if (err2) throw err2;
+      console.log(res2)
+      res2.map(rid => (roleIDS.push({ name: rid.title, value: rid.id })))
+      console.log(employeeIDS, roleIDS)
+
+
+      inquirer.prompt([
+        {
+          name: "id",
+          type: "list",
+          message: "Which employee's role would you like to update?",
+          choices: employeeIDS
+        },
+        {
+          name: 'newRoleId',
+          type: 'list',
+          message: "Choose new role ID for employee",
+          choices: roleIDS
+          // choices: [
+          //   "2",
+          //   "3",
+          //   "4",
+          //   "5",
+          //   "6"
+          // ]
         }
-        console.table(res);
-        mainMenuQuestions();
+      ]).then(userentry => {
+        console.log(userentry)
+
+        let sql = `UPDATE employee SET role_id=? WHERE id =?`;
+
+        let params = [parseInt(userentry.newRoleId), parseInt(userentry.id)]
+
+        db.query(sql, params, function (err, res) {
+          if (err) {
+            console.log(err);
+            return err;
+          }
+          console.table(res);
+          mainMenuQuestions();
+        })
       })
-    
+    })
+  })
 };
 
 // WHEN I choose to view all roles *** 
 // THEN I am presented with the job title, role id, the department that role belongs to, and the salary for that role
 function viewAllRoles() {
   let sql = 'SELECT r.title, r.id, d.department_name AS Department, r.salary FROM role r JOIN department d ON d.id = r.department_id'
-  db.query(sql, function(err, res) {
+  db.query(sql, function (err, res) {
     if (err) {
       console.log(err);
       return err;
@@ -234,7 +255,7 @@ function viewAllRoles() {
 //     let sql = `INSERT INTO role (title, salary, department_id) VALUES (?,?,?)`;
 
 //     let params = [role, salary, department]
-    
+
 //     db.query(sql, params, (err, res) => {
 //       if (err) {
 //         console.log(err);
@@ -242,7 +263,7 @@ function viewAllRoles() {
 //       }
 //       mainMenuQuestions();
 //     })
-  
+
 // };
 
 // WHEN I choose to add a role /xxx does not add role. problem with foreign keys primary keys
@@ -260,39 +281,39 @@ function addRole() {
       message: 'What is the role salary?'
     },
     {
-    type: 'choice',
-    name: 'department',
-    message: 'What is the role department id?',
-    choices: [
-      "2",
-      "3",
-      "4",
-      "5",
-      "6"
-    ]
+      type: 'choice',
+      name: 'department',
+      message: 'What is the role department id?',
+      choices: [
+        "2",
+        "3",
+        "4",
+        "5",
+        "6"
+      ]
     },
-])
-  .then((answer) => {
-    let sql = `INSERT INTO role (title, salary, department_id) VALUES (?,?,?)`;
+  ])
+    .then((answer) => {
+      let sql = `INSERT INTO role (title, salary, department_id) VALUES (?,?,?)`;
 
-  let params = [answer.role, answer.salary, parseInt(answer.department)]
+      let params = [answer.role, answer.salary, parseInt(answer.department)]
 
-    db.query(sql, params, (err, res) => {
-      if (err) {
-        console.log(err);
-        return err;        
-      }
-      console.table(answer)
-      mainMenuQuestions();
-    })
-  });
+      db.query(sql, params, (err, res) => {
+        if (err) {
+          console.log(err);
+          return err;
+        }
+        console.table(answer)
+        mainMenuQuestions();
+      })
+    });
 };
 
 // WHEN I choose to view all departments ***
 // THEN I am presented with a formatted table showing department names and department ids
 function viewAllDepts() {
   let sql = 'select * from department';
-  db.query(sql, function(err, res) {
+  db.query(sql, function (err, res) {
     if (err) {
       console.log(err);
       return err;
@@ -306,28 +327,28 @@ function viewAllDepts() {
 function addDept() {
   inquirer.prompt([
     {
-        type: 'input',
-        name: 'department',
-        message: 'What is the department name?'
+      type: 'input',
+      name: 'department',
+      message: 'What is the department name?'
     }
-])
-  .then((answer) => {
-    let sql = `INSERT INTO department (department_name) VALUES ('${answer.department}')`;
-    db.query(sql, (err, res) => {
-      if (err) {
-        console.log(err);
-        return err;        
-      }
-      mainMenuQuestions();
-    })
-  });
+  ])
+    .then((answer) => {
+      let sql = `INSERT INTO department (department_name) VALUES ('${answer.department}')`;
+      db.query(sql, (err, res) => {
+        if (err) {
+          console.log(err);
+          return err;
+        }
+        mainMenuQuestions();
+      })
+    });
 };
 
 // WHEN I choose to quit
 // THEN I exit the program
 function quit() {
-    // connection.end()
-    process.exit(0)
+  // connection.end()
+  process.exit(0)
 };
 
 // start command line app

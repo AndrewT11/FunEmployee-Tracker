@@ -6,7 +6,7 @@ JOIN role r ON e.role_id = r.id
 JOIN department d ON d.id = r.department_id
 
 
-
+ 
 --  allEmployeesByDept
 SELECT d.department_name AS Department, e.first_name, e.last_name,
 FROM employee e
@@ -42,7 +42,9 @@ INSERT INTO employee (firstName, lastName, role, manager_id) VALUES (?,?,?,?);
 
 -- WHEN I choose to Update Employee Role
 -- THEN I am prompted to select an employee to update and their new role and this information is updated in the database 
-UPDATE role SET name = `'${newRole}'` WHERE id = `'${id}'`;
+UPDATE role 
+SET title = `'${newRole}'` 
+WHERE id = `'${id}'`;
 
 
 --  Update employee managers.

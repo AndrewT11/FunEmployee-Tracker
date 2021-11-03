@@ -59,3 +59,26 @@ function updateManager() {
 case "Remove Employee":
     removeEmployee();
     break;
+    case "Update Employee Manager":
+        updateManager();
+        break;
+
+
+function mainMenuQuestions() {
+    inquirer.prompt([
+        {
+        name: "mainMenu",
+        type: "list",
+        message: "Please select from the following:",
+        choices: [
+            "View All Employees",
+            "Add Employee",
+            "Update Employee Role",
+            "View All Roles",
+            "Add Role",
+            "View All Departments",
+            "Add Department",
+            "Quit",
+        ],
+        }
+    ])
